@@ -304,7 +304,7 @@ func (s *systemd) runAction(action string) error {
 const systemdScript = `[Unit]
 Description={{.Description}}
 ConditionFileIsExecutable={{.Path|cmdEscape}}
-{{range $i, $dep := .Dependencies}} 
+{{range $i, $dep := .Dependencies}}
 {{$dep}} {{end}}
 
 [Service]
@@ -323,7 +323,7 @@ StandardError=file:{{.LogDirectory}}/{{.Name}}.err
 {{if gt .LimitNOFILE -1 }}LimitNOFILE={{.LimitNOFILE}}{{end}}
 {{if .Restart}}Restart={{.Restart}}{{end}}
 {{if .SuccessExitStatus}}SuccessExitStatus={{.SuccessExitStatus}}{{end}}
-RestartSec=120
+RestartSec=10
 EnvironmentFile=-/etc/sysconfig/{{.Name}}
 
 {{range $k, $v := .EnvVars -}}
